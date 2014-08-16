@@ -5,9 +5,9 @@ Contents
 --------
 The repository `playing_with_mapillary` contains 3 folders:
 
-1. `image_sequence_downloader`: which contains the Python program used to download the image sequences.
-2. `recurring_pattern_detector`: which contains the C++ program to segment the image.
-3. `report`: which contains the LaTeX report.
+1. [image_sequence_downloader](https://github.com/davidok8/playing_with_mapillary/tree/master/image_sequence_downloader): which contains the Python program used to download the image sequences.
+2. [recurring_pattern_detector](https://github.com/davidok8/playing_with_mapillary/tree/master/recurring_pattern_detector): which contains the C++ program to segment the image.
+3. [report](https://github.com/davidok8/playing_with_mapillary/tree/master/report): which contains the LaTeX report.
 
 Data and results are stored as follows:
 
