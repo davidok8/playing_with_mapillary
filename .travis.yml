@@ -1,0 +1,13 @@
+language: cpp
+
+compiler:
+  - gcc
+
+script:
+  - cd recurring_pattern_detector
+  - mkdir build
+  - cd build
+  - cmake -DCMAKE_BUILD_TYPE=Release ..
+  - make
+  - cd recurring_pattern_detector
+  - ./recurring_pattern_detector
