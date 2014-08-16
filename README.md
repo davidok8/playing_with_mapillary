@@ -11,8 +11,8 @@ The repository `playing_with_mapillary` contains 3 folders:
 
 Data and results are stored as follows:
 
-- Datasets are in: `recurring_pattern_detector/recurring_pattern_detector/datasets`.
-- Results are in: `recurring_pattern_detector/recurring_pattern_detector/results`.
+- Datasets are in: [/recurring_pattern_detector/recurring_pattern_detector/datasets](https://github.com/davidok8/playing_with_mapillary/tree/master/recurring_pattern_detector/recurring_pattern_detector/datasets).
+- Results are in: [/recurring_pattern_detector/recurring_pattern_detector/results](https://github.com/davidok8/playing_with_mapillary/tree/master/recurring_pattern_detector/recurring_pattern_detector/results).
 
 
 Build the program
@@ -46,9 +46,9 @@ In ubuntu, type the following commands:
   make
 ```
 
-The compiled program is: `playing_with_mapillary/recurring_pattern_detector/build/recurring_pattern_detector/recurring_pattern_detector`.
+The compiled program is `recurring_pattern_detector` and is located in folder: `/recurring_pattern_detector/build/recurring_pattern_detector`.
 
-Since we are at `playing_with_mapillary/recurring_pattern_detector/build/`. Run the program:
+Since we are at `recurring_pattern_detector/build/`. Run the program:
 
 ```
   $ ./recurring_pattern_detector/recurring_pattern_detector
@@ -79,8 +79,10 @@ When the program `recurring_pattern_detector` is run:
 
 2. it stores the segmentation results in `playing_with_mapillary/recurring_pattern_detector/recurring_pattern_detector/results/-ywLysPFu3TL85zOMOYJkw`.
 
+If you encounter any trouble, click on the build status to examine the log: [![Build
+Status](https://travis-ci.org/davidok8/playing_with_mapillary.svg?branch=master)](davidok8/playing_with_mapillary)
 
-Read the code for details: `playing_with_mapillary/recurring_pattern_detector/recurring_pattern_detector/recurring_pattern_detector.cpp`
+Read the code for details: [recurring_pattern_detector.cpp](https://github.com/davidok8/playing_with_mapillary/blob/master/recurring_pattern_detector/recurring_pattern_detector/recurring_pattern_detector.cpp)
 
 (The way the project is laid out is not very convenient in Linux but in constrast, in Windows, it is very practical. Sorry.)
 
