@@ -18,6 +18,10 @@ Data and results are stored as follows:
 Build the program
 -----------------
 
+**Continuous integration status**:
+Waiting for travis CI to react...
+
+
 To build the program, you will need CMake (http://www.cmake.org). We describe it for Linux and Mac OS X.
 
 ### Linux
