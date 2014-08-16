@@ -175,11 +175,7 @@ function (do_set_specific_target_properties _target _additional_compile_flags)
   endif ()
 
   set_target_properties(${_target} PROPERTIES
-                        VERSION ${DO_VERSION}
-                        SOVERSION ${DO_SOVERSION}
-                        COMPILE_DEFINITIONS ${_additional_compile_flags}
-                        OUTPUT_NAME_DEBUG   ${_out_target_name}-${DO_VERSION}-d
-                        OUTPUT_NAME_RELEASE ${_out_target_name}-${DO_VERSION})
+                        COMPILE_DEFINITIONS ${_additional_compile_flags})
 endfunction (do_set_specific_target_properties)
 
 macro (do_generate_library _library_name)
