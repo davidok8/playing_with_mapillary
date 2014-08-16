@@ -1,0 +1,2 @@
+add_subdirectory(do_cv)
+add_subdirectory(graph_cut_optimization)
