@@ -75,9 +75,9 @@ What does the program do?
 
 When the program `recurring_pattern_detector` is run:
 
-1. it segments the image sequence `-ywLysPFu3TL85zOMOYJkw` which is in the folder `playing_with_mapillary/recurring_pattern_detector/recurring_pattern_detector/datasets/-ywLysPFu3TL85zOMOYJkw`.
+1. it segments the image sequence [16U02a2VZI6P3Wz2z8QPZA](https://github.com/davidok8/playing_with_mapillary/tree/master/recurring_pattern_detector/recurring_pattern_detector/datasets/16U02a2VZI6P3Wz2z8QPZA)).
 
-2. it stores the segmentation results in `playing_with_mapillary/recurring_pattern_detector/recurring_pattern_detector/results/-ywLysPFu3TL85zOMOYJkw`.
+2. it stores the segmentation results in [16U02a2VZI6P3Wz2z8QPZA](https://github.com/davidok8/playing_with_mapillary/tree/master/recurring_pattern_detector/recurring_pattern_detector/results/16U02a2VZI6P3Wz2z8QPZA)).
 
 If you encounter any trouble, click on the build status to examine the log: [![Build
 Status](https://travis-ci.org/davidok8/playing_with_mapillary.svg?branch=master)](davidok8/playing_with_mapillary)
