@@ -1,0 +1,5 @@
+coverage
+json 
+nose
+requests
+urllib
