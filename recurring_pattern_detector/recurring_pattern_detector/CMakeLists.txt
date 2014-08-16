@@ -4,15 +4,12 @@ if(POLICY CMP0020)
   cmake_policy(SET CMP0020 NEW)
 endif()
 
-find_package(DO COMPONENTS Core ImageIO ImageProcessing REQUIRED)
-include(${DO_USE_FILE})
-
 add_library(visualization
             visualization.hpp visualization.cpp)
 
 macro (do_add_executable NAME SOURCE)
   add_executable(${NAME} ${SOURCE})
-  target_link_libraries(${NAME} "${DO_LIBRARIES}")
+  target_link_libraries(${NAME} DO_Core DO_ImageIO)
   set_target_properties(
     ${NAME} PROPERTIES
     COMPILE_FLAGS "-DSRCDIR=${CMAKE_CURRENT_SOURCE_DIR}"
