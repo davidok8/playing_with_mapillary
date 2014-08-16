@@ -20,8 +20,7 @@ Build the program
 
 ### Continuous Integration Status
 
-[![Build
-Status](https://travis-ci.org/davidok8/playing_with_mapillary.svg?branch=master)](davidok8/playing_with_mapillary)
+[![Build Status](https://travis-ci.org/davidok8/playing_with_mapillary.svg?branch=master)](https://travis-ci.org/davidok8/playing_with_mapillary)
 
 Click on the Travis CI badge and scroll to the end of the build history. Once the program is build, we run the program and it shows the computation time to segment each frame of some image sequence.
 
@@ -79,8 +78,7 @@ When the program `recurring_pattern_detector` is run:
 
 2. it stores the segmentation results in [16U02a2VZI6P3Wz2z8QPZA](https://github.com/davidok8/playing_with_mapillary/tree/master/recurring_pattern_detector/recurring_pattern_detector/results/16U02a2VZI6P3Wz2z8QPZA)).
 
-If you encounter any trouble, click on the build status to examine the log: [![Build
-Status](https://travis-ci.org/davidok8/playing_with_mapillary.svg?branch=master)](davidok8/playing_with_mapillary)
+If you encounter any trouble, click on the build status to examine the log: [![Build Status](https://travis-ci.org/davidok8/playing_with_mapillary.svg?branch=master)](https://travis-ci.org/davidok8/playing_with_mapillary)
 
 Read the code for details: [recurring_pattern_detector.cpp](https://github.com/davidok8/playing_with_mapillary/blob/master/recurring_pattern_detector/recurring_pattern_detector/recurring_pattern_detector.cpp)
 
