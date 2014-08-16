@@ -18,6 +18,14 @@ Data and results are stored as follows:
 Build the program
 -----------------
 
+### Continuous Integration Status
+
+[![Build
+Status](https://travis-ci.org/davidok8/playing_with_mapillary.svg?branch=master)](davidok8/playing_with_mapillary)
+
+Click on the Travis CI badge and scroll to the end of the build history. Once the program is build, we run the program and it shows the computation time to segment each frame of some image sequence.
+
+
 To build the program, you will need CMake (http://www.cmake.org). We describe it for Linux and Mac OS X.
 
 ### Linux
