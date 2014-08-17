@@ -21,7 +21,7 @@
 \author{David Ok}
 \maketitle
 
-All implementations are in C++. This was not the best decision as it allowed to explore only a small number of ideas among those I had.
+The implementation is in C++. This was not the best decision as it allowed to explore only a small number of ideas among those I had.
 
 \section{Recurring Pattern Detection}
 
@@ -58,11 +58,11 @@ Please see the \texttt{README.md} file in the repository.
 
 \subsection{Approach}
 
-This last method seems promising but much work remains to be done. Among the plethora of graph-cut based approaches, let us mention that the GrabCut algorithm is one of those approaches, which is available in openCV. Because of its iterative minimization approach, GrabCut is a little bit slow.
+The method we present here seems promising but much work remains to be done. Among the plethora of graph-cut based approaches, let us mention that the GrabCut algorithm is one of those approaches, which is available in openCV. However, because of its iterative minimization approach, GrabCut is a little bit slow.
 
-Here I choose to do a more basic graph-cut but this time by encoding more relevant prior knowledge.
+Here I choose to do a more basic graph-cut but by encoding relevant prior knowledge.
 
-In the sequel, we introduce some notations. let $0$ be the class of pixels we want to get rid off by and $1$ be the class of streetview pixels we want to keep. For a given time step $t$, we denote by:
+In the sequel, we introduce some notations. let $0$ be the class of uninteresting pixels by and $1$ be the class of streetview pixels. For a given time step $t$, we denote by:
 \begin{itemize}
 \item $\mathbf{I}_t$ the $t$-th image of the sequence;
 \item $\mathbf{I}_t(p)$ the color of pixel $p=(x,y)$ in frame $\mathbf{I}_t$;
@@ -79,20 +79,20 @@ Note that $g_{p,t}$ and $h_{p,q,t}$ are respectively the data term and the regul
 
 
 \subsubsection{Photo-consistency for the data term.}
-Using the training data, we compute the following color-based prior distributions from the training data. From the training data, we compute:
+Using the training data, we are able to compute the following color-based prior distributions. Namely, we compute:
 \begin{itemize}
-\item the histogram function $h(l = 1, \mathbf{c}) = \displaystyle\sum_{1 \leq p \leq N} \mathds{1}_{\{\mathbf{c}_p = \mathbf{c}\}}$, which counts the number of pixels with color $\mathbf{c}$ that with label $l=1$.
-\item the histogram function $h(l = 0, \mathbf{c}) = \displaystyle\sum_{1 \leq p \leq N} \mathds{1}_{\{\mathbf{c}_p = \mathbf{c}\}}$, which counts the number of pixels with color $\mathbf{c}$ that with label $l=1$.
+\item the histogram function $h(l = 1, \mathbf{c}) = \displaystyle\sum_{1 \leq p \leq N} \mathds{1}_{\{\mathbf{c}_p = \mathbf{c}\ \cap \ l = 1\}}$, which counts the number of pixels with color $\mathbf{c}$ that are labeled $l=1$.
+\item the histogram function $h(l = 0, \mathbf{c}) = \displaystyle\sum_{1 \leq p \leq N} \mathds{1}_{\{\mathbf{c}_p = \mathbf{c}\ \cap\ l = 0\}}$, which counts the number of pixels with color $\mathbf{c}$ that are labeled $l=0$.
 \end{itemize}
-Then we renormalize the histogram to obtain color-based distributions $P(l = 1 | \mathbf{c})$ and $P(l = 0 | \mathbf{c})$, i.e., the probability that a pixel $p$ with color $\mathbf{c}$ is labeled with label $l=1$, respectively $l=0$.
+Then, by renormalizing the histogram, we obtain color-based distributions\\ $P(l = . | \mathbf{c})$ for each class $l$, i.e., the probability that a pixel $p$ with color $\mathbf{c}$ is labeled $l=0$ or $l=1$.
 
-Because we deal with an image sequence, we can update the histograms $h(l = 0, \mathbf{c})$ and $h(l = 1, \mathbf{c})$ at each time time step $t$. Since we have a temporal dimension, histograms are now denoted with a subscript index $t$ as $h_t(l = ., \mathbf{c})$.
+Because we deal with an image sequence, we can update the histograms $h(l = ., \mathbf{c})$ for any class $l \in \{0, 1\}$ at each time time step $t$. Since we have a temporal dimension, histograms are now denoted with a subscript index $t$ as $h_t(l = ., \mathbf{c})$.
 
-Histogram functions are updated as follows. Let us just explain $h_{t}(l = ., \mathbf{c})$ is updated. Let a fixed label be $l=1$ (for example) and a fixed color $\mathbf{c}$, the histogram function is updated as follows:
+Histogram functions are updated as follows. Let us just explain $h_{t}(l = ., \mathbf{c})$ is updated. Consider a fixed label $l=1$ (for example) and a fixed color $\mathbf{c}$, the histogram function is updated as follows:
 \begin{equation}
 h_{t+1}(l = 1, \mathbf{c}) = h_t(l=1, \mathbf{c}) + \sum_{p \in D} \mathds{1}_{\{l_{p,t+1} = 1\ \cap\ \mathbf{I}_{t+1}(p) = \mathbf{c}\}}
 \end{equation}
-In words, we add here the number of pixels in the frame $\mathbf{I}_{t+1}$ that are labeled $l=1$.
+In other words, the update consists of adding the number of pixels in the frame $\mathbf{I}_{t+1}$ that are labeled $l=1$.
 
 The color-based distributions $P_t(l = . | \mathbf{c} = \mathbf{c})$, which now evolves over time, are still obtained by renormalising the histogram functions $h_{t}(l = ., \mathbf{c})$.
 
@@ -105,9 +105,9 @@ The update rule is as follows:
 \begin{equation}
 T_{t+1}(p) = T_t(p) + \mathds{1}_{\{l_{p,t+1} = 0\}}
 \end{equation}
-In words, after segmenting the frame $\mathbf{I}_{t+1}$, we increment $T_{t+1}(p)$ if the label of pixel $p$ is $0$.
+In other words, after segmenting the frame $\mathbf{I}_{t+1}$, we increment $T_{t+1}(p)$ if the label of pixel $p$ is $0$.
 
-Then, we can compute the probability $f_t(p) = \frac{T_t(p)}{t}$ that pixel $p$ will be labeled $l=0$. Let's call it the temporal-consistency prior term.
+Then, we can compute the probability $f_t(p) = \displaystyle\frac{T_t(p)}{t}$ that pixel $p$ will be labeled $l=0$. Let's call it the temporal-consistency prior term.
 
 
 \subsubsection{Data Term}
@@ -134,7 +134,7 @@ h_{p,q,t}(l, l') = \displaystyle \left\{\begin{array}{cc}
 
 
 
-\section{Experiments}
+\subsection{Experiments}
 
 We show some results for the image sequence \texttt{-ywLysPFu3TL85zOMOYJkw} in Fig. \ref{fig:results}.
 
@@ -163,16 +163,17 @@ The segmentation results were done with the format 1024 x 764, that looks reason
 
 
 
-\section{Future works}
-The experiments using method 3 show promising results.
+\subsection{Future works}
+The experiments show promising results.
 
-To robustify the approaches:
+To robustify the approach:
 \begin{enumerate}
-\item Instead of pixels, use image patches and learn sparse dictionary of patches (see Julien Mairal PhD thesis). Discussion with Yubin about deep learning reminded me about this. I believe this would help a lot. Online learning is possible. Toolboxes in python should be available as well.
+\item Instead of pixels, we can use image patches and learn a sparse dictionary of patches (cf. Julien Mairal PhD thesis). Discussion with Yubin about deep learning reminded me about this. I believe this would help a lot. Online learning is also possible. Toolboxes in python should be available as well.
 \item Perform histogram equalization for the sequence in case the illumination settings were very bad for taking pictures (cf. sequence key: \texttt{kDUGtZ3Nv6IkkmABg6hC8w})
 \item Improve the way we update the regularization term?
 \item Tune parameters to balance between data term and regularization term.
 \item Update the priors with the last 5 segmentation results, instead of keeping all the history. For example, this will help to quickly adapt to sudden changes. I can think of a sudden illumination change because of the sun or, e.g., the windscreen wiper starts moving because of the rain.
+\item If frames can be taken at smaller time intervals, we could estimate some sort of optical flow, that would provide a more powerful cue than the current temporal prior.
 \end{enumerate}
 
 
@@ -218,25 +219,27 @@ Let us denote by $\rho(x_1, x_2, y_1, y_2)$ such ratio, i.e.:
 }
 \end{equation}
 
-The ratio can be computed very efficiently with integral images (cf. [Real-Time Face Detection, Viola and Jones, IJCV 2004]).
+The ratio can be computed very efficiently by using integral images (cf. [Real-Time Face Detection, Viola and Jones, IJCV 2004]).
 
 So finally, it means we want to solve the following problem
 \begin{equation}
 \begin{array}{cc}
-\underset{x_1, x_2, y_1, y_2}{\text{maximize}} & \rho(x_1, x_2, y_1, y_2) + 
-\displaystyle \frac{x_2-x_1}{w} + \displaystyle \frac{y_2-y_1}{h} \\
+\underset{x_1, x_2, y_1, y_2}{\text{maximize}} & \displaystyle \frac{x_2-x_1}{w} + \displaystyle \frac{y_2-y_1}{h} + \lambda\ \rho(x_1, x_2, y_1, y_2) \\
+\\
 \text{subject to} & 
   \left\{
+  \small
   \begin{array}{c}
-    (y2-y1) = 3/4 (x_2 - x_1) \\
-    0 \leq x1 \leq x_2 \leq W \\
-    0 \leq y1 \leq y_2 \leq H \\
+    (y_2-y_1) = \frac{3}{4} (x_2 - x_1) \\
+    0 \leq x1 \leq x_2 \leq w \\
+    0 \leq y1 \leq y_2 \leq h \\
   \end{array}
   \right.
 \end{array}
 \end{equation}
+where $w$ and $h$ are the width and height of all images $\mathbf{I}_t$.
 
-Notice that the three terms $\rho(x_1, x_2, y_1, y_2)$, $\frac{x_2-x_1}{w}$ and $\frac{x_2-x_1}{w}$ are in $[0, 1]$. This means that we should not need to any weight to balance each of these terms.
+Notice that the three terms $\rho(x_1, x_2, y_1, y_2)$, $\displaystyle\frac{x_2-x_1}{w}$ and $\displaystyle\frac{y_2-y_1}{h}$ are in $[0, 1]$. For this reason, we can set $\lambda = 1$ or $\lambda=2$, which are likely to give good results.
 
 The problem should be solvable efficiently by some branch-and-bound strategy. We may reuse some ideas from [Beyond Sliding Windows: Object Localization by Efficient Subwindow Search, Lampert et al. CVPR 2008].
 
